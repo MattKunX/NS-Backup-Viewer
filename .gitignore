@@ -9,5 +9,11 @@ nbproject
 .settings
 vendor
 composer.phar
+composer.json
+composer.lock
+Vagrantfile
 Application/
 SalesRep.php
+external/
+data/
+LICENSE.txt
