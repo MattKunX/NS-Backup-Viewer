@@ -1,0 +1,78 @@
+<style>.container{width:100%;}</style>
+<H1><img class="record-icon" src="<?php echo $this->basePath('/img/journal.svg'); ?>"/> 
+    <?php 
+        echo 'Check Record: '.$fields['tranid']; 
+        if(!empty($fields['status'])) echo ' <div class="status">'.$fields['status'].'</div>';
+    ?>
+</H1>
+<div class="static-fields">
+    <div class="field-container">
+        <div class="field"><b>Date:</b><div><?php echo $fields['trandate'] ?></div></div>
+        <div class="field"><b>Posting Period:</b><div><?php echo $fields['postingperiod'] ?></div></div>
+        <div class="field"><b>Subsidiary:</b><div><?php echo $fields['subsidiary'] ?></div></div>
+        <div class="field"><b>To Subsidiary:</b><div><?php echo 'who cares';//$fields['tosubsidiary'] ?></div></div>
+        <div class="field"><b>Preparer:</b><div><?php echo $fields['custbody16'] ?></div></div>
+        <div class="field"><b>Reversal:</b><div><?php echo ($fields['isreversal']=='T')?'Yes':'No'; ?></div></div>
+        <div class="field"><b>Reversal Date:</b><div><?php echo $fields['reversaldate'] ?></div></div>
+        <div class="field"><b>Memo:</b><div><?php echo $fields['memo'] ?></div></div>
+        <hr class="clear">
+        <div class="field"><b>Description:</b><div><?php echo $fields['custbody17'] ?></div></div>
+        <div class="field"><b>Currency:</b><div><?php echo $fields['currency'] ?></div></div>
+        <div class="field"><b>Exchange Rate:</b><div><?php echo $fields['exchangerate'] ?></div></div>
+        <div class="field"><b>Created From:</b><div><?php echo $fields['createdfrom'] ?></div></div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="tabs">
+    <div class="tab-header">
+        <h3 id="lines-fields" class="active">Lines</h3>
+        <h3 id="relatedrecords-fields">Related Records</h3>
+        <h3 id="notes-fields">User Notes</h3>
+        <h3 id="dynamic-fields">All Fields</h3>
+        <span class="clear"></span>
+    </div>
+    <div class="lines-fields tab-content visible">
+        <div class="field field-header small-field">Subsidiary</div>
+        <div class="field field-header small-field">Account</div>
+        <div class="field field-header small-field">Name</div>
+        <div class="field field-header small-field">Debit</div>
+        <div class="field field-header small-field">Credit</div>
+        <div class="field field-header small-field">Memo</div>
+        <div class="field field-header small-field">Department</div>
+        <div class="field field-header small-field">Class</div>
+        <div class="field field-header small-field">Location</div>
+        <div class="field field-header small-field">MKT.EXP.</div>
+        <div class="field field-header small-field">Pay Method</div>
+        <div class="field field-header small-field">Project</div>
+        <div class="field field-header small-field">Tax</div>
+        <div class="field field-header small-field">Tax Rate</div>
+        <div class="field field-header small-field">Tax Amt</div>
+        <div class="field field-header small-field">Tax Acct</div>
+        <div class="field field-header small-field">Gross Amt</div>
+        <div class="field field-header small-field">History</div>
+        <div class="clear"></div>
+        <?php echo $lines_table_html; ?>
+    </div>
+    <div class="relatedrecords-fields tab-content">
+        <div class="field field-header">Date</div>
+        <div class="field field-header">Type</div>
+        <div class="field field-header">Number</div>
+        <div class="field field-header">Status</div>
+        <div class="field field-header">Amount</div>
+        <div class="clear"></div>
+        <?php echo $links_table_html; ?>
+    </div>
+    <div class="notes-fields tab-content">
+        <div class="field field-header">Internal ID</div>
+        <div class="field field-header">Date</div>
+        <div class="field field-header">Author</div>
+        <div class="field field-header">Title</div>
+        <div class="field field-header note">Note</div>
+        <div class="field field-header">Direction</div>
+        <div class="clear"></div>
+        <?php echo $notes_table_html; ?>
+    </div>
+    <div class="dynamic-fields tab-content"><?php echo $dynamic_fields; ?></div>
+</div>
+
+<script type="text/javascript" src="<?php echo $this->basePath('/js/NStabs.js'); ?>"></script>

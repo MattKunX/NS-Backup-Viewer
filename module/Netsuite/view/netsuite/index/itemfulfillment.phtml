@@ -1,0 +1,90 @@
+<style>.container{width:100%;}</style>
+<H1><img class="record-icon" src="<?php echo $this->basePath('/img/generictransaction.svg'); ?>"/> ItemFulfillment Record: <?php echo $fields['tranid']; ?> <div class="status"><?php echo $fields['status']; ?></div></H1>
+<div class="static-fields">
+    <div class="field-container">
+        <div class="field"><b>Customer:</b><div><a href="/netsuite/index/customer?id=<?php echo $fields['companyid']; ?>"><?php echo $fields['entity']; ?></a></div></div>
+        <div class="field"><b>Subsidiary:</b><div><?php echo $fields['subsidiary'] ?></div></div>
+        <div class="field"><b>Date:</b><div><?php echo $fields['trandate'] ?></div></div>
+        <div class="field"><b>Posting Period:</b><div><?php echo $fields['postingperiod'] ?></div></div>
+        <div class="field"><b>Magento #:</b><div><?php echo $fields['custbody_celigo_magento_id'] ?></div></div>
+        <div class="field"><b>Created From:</b>
+            <div>
+            <a href='/netsuite/index/salesorder?id=<?php echo $fields['orderid'] ?>'><?php echo $fields['createdfrom'] ?></a>
+            </div>
+        </div>
+        <div class="field"><b>Created By:</b><div><?php echo $fields['custbodycreatedby'] ?></div></div>
+        <div class="field"><b>Order Condition:</b><div><?php echo $fields['custbody11'] ?></div></div>
+        <div class="field"><b>Memo:</b><div><?php echo $fields['memo'] ?></div></div>
+        <hr class="clear">
+        <div class="field"><b>Shipping Method:</b><div><?php echo $fields['shipmethod'] ?></div></div>
+        <div class="field"><b>Residential Address:</b><div><?php echo $fields['shipisresidential']=='T'?'Yes':'No'; ?></div></div>
+        <div class="field"><b>Insurance Required:</b><div><?php echo $fields['custbody_insurance_required']=='T'?'Yes':'No'; ?></div></div>
+        <div class="field"><b>Signature Required:</b><div><?php echo $fields['custbody_signature_req']=='T'?'Yes':'No'; ?></div></div>
+        <div class="field"><b>Actual Shipping Carrier:</b><div><?php echo $fields['custbody_ozlink_shipping_carrier'] ?></div></div>
+        <div class="field"><b>Actual Shipping Service:</b><div><?php echo $fields['custbody_ozlink_shipping_service'] ?></div></div>
+        <div class="field"><b>Actual Shipping Cost:</b><div><?php echo $fields['custbody_ozlink_actual_ship_cost'] ?></div></div>
+        <div class="field"><b>Customer Shipping Charge:</b><div><?php echo $fields['shippingcost'] ?></div></div>
+        <div class="clear"></div>
+    </div>
+    <div class="totals">
+        <div class="summary">Shipping Address</div>
+        <table class="totals-table">
+            <tr><td><?php echo $fields['shipaddress']; ?></td></tr>
+        </table>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="tabs">
+    <div class="tab-header">
+        <h3 id="items-fields" class="active">Items</h3>
+        <h3 id="packages-fields">Packages</h3>
+        <h3 id="messages-fields">Messages</h3>
+        <h3 id="notes-fields">User Notes</h3>
+        <h3 id="dynamic-fields">All Fields</h3>
+        <span class="clear"></span>
+    </div>
+    <div class="items-fields tab-content visible">
+        <div class="field field-header small-field">Internal ID</div>
+        <div class="field field-header small-field">Item</div>
+        <div class="field field-header item_display">Description</div>
+        <div class="field field-header small-field">Location</div>
+        <div class="field field-header small-field">Bin Number</div>
+        <div class="field field-header small-field">On Hand</div>
+        <div class="field field-header small-field">Quantity</div>
+        <div class="field field-header small-field">Serial #</div>
+        <div class="field field-header small-field">Type</div>
+        <div class="clear"></div>
+        <?php echo $items_table_html; ?>
+    </div>
+    <div class="packages-fields tab-content">
+        <div class="field"><b>Total Package Weight:</b><div><?php echo $fields['onsaveshipmentweight'].' '.$fields['tranweightunit'] ?></div></div>
+        <div class="clear"></div>
+        <div class="field field-header">Weight</div>
+        <div class="field field-header">Package Tracking Number</div>
+        <div class="clear"></div>
+        
+        <?php echo $packages_table_html; ?>
+    </div>
+    <div class="messages-fields tab-content">
+        <div class="field field-header">Internal ID</div>
+        <div class="field field-header">Date</div>
+        <div class="field field-header">Author</div>
+        <div class="field field-header subject">Subject</div>
+        <div class="field field-header">Attachment</div>
+        <div class="clear"></div>
+        <?php echo $messages_table_html; ?>
+    </div>
+    <div class="notes-fields tab-content">
+        <div class="field field-header">Internal ID</div>
+        <div class="field field-header">Date</div>
+        <div class="field field-header">Author</div>
+        <div class="field field-header">Title</div>
+        <div class="field field-header note">Note</div>
+        <div class="field field-header">Direction</div>
+        <div class="clear"></div>
+        <?php echo $notes_table_html; ?>
+    </div>
+    <div class="dynamic-fields tab-content"><?php echo $dynamic_fields; ?></div>
+</div>
+
+<script type="text/javascript" src="<?php echo $this->basePath('/js/NStabs.js'); ?>"></script>

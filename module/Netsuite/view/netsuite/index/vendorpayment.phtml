@@ -1,0 +1,137 @@
+<style>.container{width:100%;}</style>
+<H1><img class="record-icon" src="<?php echo $this->basePath('/img/recordicons/generictransaction.svg'); ?>"/>Vendor Payment Record: <?php echo $fields['tranid']; ?> <div class="status"><?php echo $fields['status']; ?></div></H1>
+<div class="static-fields">
+    <div class="field-container">
+        <div class="field"><b>Customer:</b><div><a href="/netsuite/index/customer?id=<?php echo $fields['companyid']; ?>"><?php echo $fields['customer']; ?></a></div></div>
+        <div class="field"><b>Account:</b><div><?php echo $fields['account_internalId_FK'] ?></div></div>
+        <div class="field"><b>A/R Account:</b><div><?php echo $fields['aracct'] ?></div></div>
+        <div class="field"><b>Date:</b><div><?php echo $fields['trandate'] ?></div></div>
+        <div class="field"><b>Posting Period:</b><div><?php echo $fields['postingperiod'] ?></div></div>
+        <div class="field"><b>Magento #:</b><div><?php echo $fields['otherrefnum'] ?></div></div>
+        <div class="field"><b>Sales Rep:</b><div><?php echo $fields['salesrep'] ?></div></div>
+        <div class="field"><b>CSR:</b><div><?php echo $fields['custbodycsr'] ?></div></div>
+        <div class="field"><b>Memo:</b><div><?php echo $fields['memo'] ?></div></div>
+        <hr class="clear">
+        <div class="field"><b>E-Mail:</b><div><?php echo $fields['email'] ?></div></div>
+        <div class="field"><b>Department:</b><div><?php echo $fields['department'] ?></div></div>
+        <div class="field"><b>Estimated Profit:</b><div><?php echo $fields['estgrossprofitpercent'] ?></div></div>
+        <div class="field"><b>Condition:</b><div><?php echo $fields['custbody11'] ?></div></div>
+        <hr class="clear">
+        <div class="field"><b>Discount:</b><div><?php echo $fields['discountitem'] ?></div></div>
+        <div class="field"><b>Discount Rate:</b><div><?php echo $fields['discountrate'] ?></div></div>
+        <div class="field"><b>Coupon Code:</b><div><?php echo $fields['couponcode'] ?></div></div>
+        <div class="field"><b>Promotion:</b><div><?php echo $fields['promocode'] ?></div></div>
+        <div class="clear"></div>
+    </div>
+    <div class="totals">
+        <div class="summary">Summary</div>
+        <table class="totals-table">
+            <tr><td>APPLIED</td><td><?php echo $fields['applied']; ?></td></tr>
+            <tr><td colspan="2" style="border-top:1px solid black;"></td></tr>
+            <tr><td>UNAPPLIED</td><td><?php echo $fields['unapplied']; ?></td></tr>
+        </table>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="tabs">
+    <div class="tab-header">
+        <h3 id="items-fields" class="active">Items</h3>
+        <h3 id="shipping-fields">Shipping</h3>
+        <h3 id="billing-fields">Billing</h3>
+        <h3 id="relatedrecords-fields">Related Records</h3>
+        <h3 id="salesteam-fields">Sales Team</h3>
+        <h3 id="messages-fields">Messages</h3>
+        <h3 id="notes-fields">User Notes</h3>
+        <h3 id="dynamic-fields">All Fields</h3>
+        <span class="clear"></span>
+    </div>
+    <div class="items-fields tab-content visible">
+        <div class="field field-header small-field">Internal ID</div>
+        <div class="field field-header small-field">Type</div>
+        <div class="field field-header item_display">Name</div>
+        <div class="field field-header small-field">Quantity</div>
+        <div class="field field-header small-field">Rate</div>
+        <div class="field field-header small-field">Total</div>
+        <div class="field field-header small-field">Location</div>
+        <div class="clear"></div>
+        <?php echo $items_table_html; ?>
+    </div>
+    <div class="shipping-fields tab-content">
+        <div class="field"><b>Ship Method:</b><div><?php echo $fields['shipmethod'] ?></div></div>
+        <div class="field"><b>Shipping Cost:</b><div><?php echo $fields['shippingcost'] ?></div></div>
+        <div class="field"><b>Tracking #:</b><div><?php echo $fields['linkedtrackingnumbers'] ?></div></div>
+        <div class="field"><b>Insurance Required:</b><div><?php echo $fields['custbody_insurance_required']=='T'?'Yes':'No'; ?></div></div>
+        <div class="field"><b>Signature Required:</b><div><?php echo $fields['custbody_signature_req']=='T'?'Yes':'No'; ?></div></div>
+        <div class="clear"></div>
+        <div class="field"><b>Shipping Address:</b><div><?php echo $fields['shipaddress']; ?></div></div>
+        <div class="clear"></div>
+    </div>
+    <div class="billing-fields tab-content">
+        <?php if(!empty($fields['terms'])): ?>
+            <div class="field"><b>Terms:</b><div><?php echo $fields['terms'] ?></div></div>
+        <?php else: ?>
+            <div class="field"><b>Payment Processor:</b><div><?php echo $fields['custbody_celigo_magento_pay_meth']!=''?$fields['custbody_celigo_magento_pay_meth']:$fields['creditcardprocessor']; ?></div></div>
+            <div class="field"><b>Payment Method:</b><div><?php echo $fields['paymentmethod'] ?></div></div>
+            <div class="field"><b>Credit Card #:</b><div><?php echo $fields['ccnumber'] ?></div></div>
+            <div class="field"><b>Name On Card</b><div><?php echo $fields['ccname'] ?></div></div>
+            <div class="field"><b>Card Street:</b><div><?php echo $fields['ccstreet']; ?></div></div>
+            <div class="field"><b>Card Zip:</b><div><?php echo $fields['cczipcode']; ?></div></div>
+        <?php endif; ?>
+        <div class="clear"></div>
+        <div class="field"><b>Billing Address:</b><div><?php echo $fields['billaddress']; ?></div></div>
+        <div class="field"><b>Tax Item:</b><div><?php echo $fields['taxitem']; ?></div></div>
+        <div class="field"><b>Tax Rate:</b><div><?php echo $fields['taxrate']; ?></div></div>
+        <div class="clear"></div>
+        <div>
+            <div class="field field-header">Gift Certificate</div>
+            <div class="field field-header">Redeemed</div>
+            <div class="field field-header">Code</div>
+            <div class="clear"></div>
+            <?php echo $giftcert_table_html; ?>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="relatedrecords-fields tab-content">
+        <div class="field field-header">Type</div>
+        <div class="field field-header">Internal ID</div>
+        <div class="field field-header">Document Number</div>
+        <div class="field field-header">Date Created</div>
+        <div class="field field-header">Ref. No#</div>
+        <div class="field field-header">Total</div>
+        <div class="field field-header csr">CSR</div>
+        <div class="field field-header">Status</div>
+        <div class="field field-header">Memo</div>
+        <div class="clear"></div>
+        <?php echo $related_table_html; ?>
+    </div>
+    <div class="salesteam-fields tab-content">
+        <div class="field field-header">Internal ID</div>
+        <div class="field field-header">Contribution</div>
+        <div class="field field-header">Employee</div>
+        <div class="clear"></div>
+        <?php echo $salesteam_table_html; ?>
+    </div>
+    <div class="messages-fields tab-content">
+        <div class="field field-header">Internal ID</div>
+        <div class="field field-header">Date</div>
+        <div class="field field-header">Author</div>
+        <div class="field field-header subject">Subject</div>
+        <div class="field field-header">Attachment</div>
+        <div class="clear"></div>
+        <?php echo $messages_table_html; ?>
+    </div>
+    <div class="notes-fields tab-content">
+        <div class="field field-header">Internal ID</div>
+        <div class="field field-header">Date</div>
+        <div class="field field-header">Author</div>
+        <div class="field field-header">Title</div>
+        <div class="field field-header note">Note</div>
+        <div class="field field-header">Direction</div>
+        <div class="clear"></div>
+        <?php echo $notes_table_html; ?>
+    </div>
+    <div class="dynamic-fields tab-content"><?php echo $dynamic_fields; ?></div>
+</div>
+
+<script type="text/javascript" src="<?php echo $this->basePath('/js/NStabs.js'); ?>"></script>

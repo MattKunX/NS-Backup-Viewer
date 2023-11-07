@@ -1,0 +1,79 @@
+<style>.container{width:100%;}</style>
+<H1>
+    <img class="record-icon" src="<?php echo $this->basePath('/img/recordicons/generictransaction.svg'); ?>"/>Deposit Record: <?php echo $fields['tranid']; ?> 
+</H1>
+<div class="static-fields">
+    <div class="field-container">
+        <div class="field" style="height: 65px;"><b>Account:</b><div><?php echo $fields['account'] ?></div></div>
+        <div class="field"><b>Date:</b><div><?php echo $fields['trandate'] ?></div></div>
+        <div class="field"><b>Posting Period:</b><div><?php echo $fields['postingperiod'] ?></div></div>
+        <div class="field"><b>Subsidiary:</b><div><?php echo $fields['subsidiary'] ?></div></div>
+        <hr class="clear">
+        <div class="field"><b>Total:</b><div><?php echo $fields['total'] ?></div></div>
+        <div class="field"><b>Description:</b><div><?php echo $fields['custbody28'] ?></div></div>
+        <div class="field"><b>Currency:</b><div><?php echo $fields['currency'] ?></div></div>
+        <div class="field"><b>Exchange Rate:</b><div><?php echo $fields['exchangerate'] ?></div></div>
+        <hr class="clear">
+        <div class="field"><b>Memo:</b><div><?php echo $fields['memo'] ?></div></div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="tabs">
+    <div class="tab-header">
+        <h3 id="lines-fields" class="active">Payments</h3>
+        <h3 id="otherdeposits-fields">Other Deposits</h3>
+        <h3 id="cashback-fields">Cash Back</h3>
+        <h3 id="notes-fields">User Notes</h3>
+        <h3 id="dynamic-fields">All Fields</h3>
+        <span class="clear"></span>
+    </div>
+    <div class="lines-fields tab-content visible">
+        <div class="field field-header small-field">Date</div>
+        <div class="field field-header small-field">Type</div>
+        <div class="field field-header small-field">Number</div>
+        <div class="field field-header note">Memo</div>
+        <div class="field field-header small-field">Pmt. Method</div>
+        <div class="field field-header small-field">Ref. Number</div>
+        <div class="field field-header small-field">From</div>
+        <div class="field field-header small-field">Amount</div>
+        <div class="clear"></div>
+        <?php echo $payments_table_html; ?>
+    </div>
+    <div class="otherdeposits-fields tab-content">
+        <div class="field field-header small-field">Date</div>
+        <div class="field field-header small-field">Type</div>
+        <div class="field field-header small-field">Number</div>
+        <div class="field field-header note">Memo</div>
+        <div class="field field-header small-field">Pmt. Method</div>
+        <div class="field field-header small-field">Ref. Number</div>
+        <div class="field field-header small-field">From</div>
+        <div class="field field-header small-field">Amount</div>
+        <div class="clear"></div>
+        <?php echo $otherdeposits_table_html; ?>
+    </div>
+    <div class="cashback-fields tab-content">
+        <div class="field field-header small-field">Date</div>
+        <div class="field field-header small-field">Type</div>
+        <div class="field field-header small-field">Number</div>
+        <div class="field field-header note">Memo</div>
+        <div class="field field-header small-field">Pmt. Method</div>
+        <div class="field field-header small-field">Ref. Number</div>
+        <div class="field field-header small-field">From</div>
+        <div class="field field-header small-field">Amount</div>
+        <div class="clear"></div>
+        <?php echo $cashback_table_html; ?>
+    </div>
+    <div class="notes-fields tab-content">
+        <div class="field field-header">Internal ID</div>
+        <div class="field field-header">Date</div>
+        <div class="field field-header">Author</div>
+        <div class="field field-header">Title</div>
+        <div class="field field-header note">Note</div>
+        <div class="field field-header">Direction</div>
+        <div class="clear"></div>
+        <?php echo $notes_table_html; ?>
+    </div>
+    <div class="dynamic-fields tab-content"><?php echo $dynamic_fields; ?></div>
+</div>
+
+<script type="text/javascript" src="<?php echo $this->basePath('/js/NStabs.js'); ?>"></script>

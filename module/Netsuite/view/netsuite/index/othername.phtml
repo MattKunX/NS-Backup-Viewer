@@ -1,0 +1,106 @@
+<style>.container{width:100%;}</style>
+<H1><img class="record-icon" src="<?php echo $this->basePath('/img/customer.svg'); ?>"/> Other Name Record: <?php echo $fields['entityid']; ?></H1>
+<div class="static-fields">
+        <div class="field"><b>Name:</b><div><?php echo $fields['firstname'].' '.$fields['middlename'].' '.$fields['lastname']; ?></div></div>
+        <div class="field"><b>Subsidiary:</b><div><?php echo $fields['subsidiary'] ?></div></div>
+        <div class="field"><b>Company:</b><div><?php echo $fields['companyname'] ?></div></div>
+        <div class="field"><b>Type:</b><div><?php echo ($fields['isperson']=='T')?'Individual':'Company'; ?></div></div>
+        <div class="field"><b>Lead Source:</b><div><?php echo $fields['leadsource'] ?></div></div>
+        <div class="field"><b>Sales Rep:</b><div><?php echo $fields['salesrep'] ?></div></div>
+        <div class="field"><b>Last Modified:</b><div><?php echo $fields['custentity_last_date_modified'] ?></div></div>
+        <div class="field"><b>Comments:</b><div><?php echo $fields['comments'] ?></div></div>
+        <hr class="clear">
+        <div class="field"><b>E-Mail:</b><div><?php echo $fields['email'] ?></div></div>
+        <div class="field"><b>Alt. E-Mail:</b><div><?php echo $fields['altemail'] ?></div></div>
+        <div class="field"><b>Phone:</b><div><?php echo $fields['phone'] ?></div></div>
+        <div class="field"><b>Mobile Phone:</b><div><?php echo $fields['mobilephone'] ?></div></div>
+        <div class="field"><b>Home Phone:</b><div><?php echo $fields['homephone'] ?></div></div>
+        <div class="field"><b>Fax:</b><div><?php echo $fields['fax'] ?></div></div>
+        <div class="field"><b>Address:</b><div><?php echo $fields['defaultaddress'] ?></div></div>
+        <div class="clear"></div>
+</div>
+<div class="tabs">
+    <div class="tab-header">
+        <h3 id="transactions-fields" class="active">Transactions</h3>
+        <h3 id="address-fields">Address</h3>
+        <h3 id="financial-fields">Financial</h3>
+        <h3 id="messages-fields">Messages</h3>
+        <h3 id="notes-fields">User Notes</h3>
+        <h3 id="files-fields">Files</h3>
+        <h3 id="cases-fields">Cases</h3>
+        <h3 id="dynamic-fields">All Fields</h3>
+        <span class="clear"></span>
+    </div>
+    <div class="transactions-fields tab-content visible">
+        <div class="field field-header small-field">Type</div>
+        <div class="field field-header small-field">Internal ID</div>
+        <div class="field field-header small-field">Doc. Number</div>
+        <div class="field field-header small-field">From</div>
+        <div class="field field-header">Date Created</div>
+        <div class="field field-header">Ref. No#</div>
+        <div class="field field-header small-field">Total</div>
+        <div class="field field-header csr">CSR</div>
+        <div class="field field-header small-field">Status</div>
+        <div class="field field-header">Memo</div>
+        <div class="clear"></div>
+        <?php echo $tran_table_html; ?>
+    </div>
+    <div class="address-fields tab-content">
+        <div class="field field-header">Label</div>
+        <div class="field field-header">Default Shipping</div>
+        <div class="field field-header">Default Billing</div>
+        <div class="field field-header">Residential</div>
+        <div class="field field-header">Address</div>
+        <div class="clear"></div>
+        <?php echo $address_table_html; ?>
+    </div>
+    <div class="financial-fields tab-content">
+        <div class="field"><b>Taxable:</b><div><?php echo $fields['taxable']=='T'?'Yes':'No'; ?></div></div>
+        <?php /*
+        <div class="field"><b>Deposit Balance:</b><div><?php echo $fields['depositbalance'] ?></div></div>
+        <div class="field"><b>Overdue Balance:</b><div><?php echo $fields['overduebalance'] ?></div></div>
+        <div class="field"><b>Unbilled Orders:</b><div><?php echo $fields['unbilledorders'] ?></div></div>
+        <div class="field"><b>Balance:</b><div><?php echo $fields['balance'] ?></div></div>
+        <div class="field"><b>Days Overdue:</b><div><?php echo $fields['daysoverdue'] ?></div></div> */ ?>
+    </div>
+    <div class="messages-fields tab-content">
+        <div class="field field-header">Internal ID</div>
+        <div class="field field-header">Date</div>
+        <div class="field field-header">Author</div>
+        <div class="field field-header subject">Subject</div>
+        <div class="field field-header">Attachment</div>
+        <div class="clear"></div>
+        <?php echo $messages_table_html; ?>
+    </div>
+    <div class="notes-fields tab-content">
+        <div class="field field-header">Internal ID</div>
+        <div class="field field-header">Date</div>
+        <div class="field field-header">Author</div>
+        <div class="field field-header">Title</div>
+        <div class="field field-header note">Note</div>
+        <div class="field field-header">Direction</div>
+        <div class="clear"></div>
+        <?php echo $notes_table_html; ?>
+    </div>
+    <div class="files-fields tab-content">
+        <div class="field field-header">Internal ID</div>
+        <div class="field field-header">Name</div>
+        <div class="field field-header">Folder</div>
+        <div class="field field-header">Date</div>
+        <div class="field field-header">Type</div>
+        <div class="clear"></div>
+        <?php echo $files_table_html; ?>
+    </div>
+    <div class="cases-fields tab-content">
+        <div class="field field-header">Internal ID</div>
+        <div class="field field-header">Issue</div>
+        <div class="field field-header">Date</div>
+        <div class="field field-header">Status</div>
+        <div class="field field-header">Assigned</div>
+        <div class="clear"></div>
+        <?php echo $cases_table_html; ?>
+    </div>
+    <div class="dynamic-fields tab-content"><?php echo $dynamic_fields; ?></div>
+</div>
+
+<script type="text/javascript" src="<?php echo $this->basePath('/js/NStabs.js'); ?>"></script>
