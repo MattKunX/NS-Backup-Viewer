@@ -14,6 +14,7 @@ composer.lock
 Vagrantfile
 Application/
 SalesRep.php
+config/
 external/
 data/
 LICENSE.txt
