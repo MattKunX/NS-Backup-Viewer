@@ -1,0 +1,35 @@
+<div class="jumbotron" style="text-align: center;opacity: 0.8;">
+    <h1><?php echo sprintf($this->translate('Welcome to %sNetsuite Backup%s'), '<span class="zf-green">', '</span>') ?></h1>
+</div>
+
+<div>
+    <div class="col-md-4">
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $this->translate('Login') ?></h3>
+            </div>
+            <div class="panel-body">
+                <?php if(isset($flashMessages[0])) 
+                    echo '<div class="alert alert-danger">'.$flashMessages[0].'. Hint: Windows Login</div>'; 
+                ?>
+                <form name="login" action="./application/auth" method="POST">
+                    <table cellpadding="5">
+                        <tr><td><label for="username">Username:</label></td><td><input name="username" type="text" /></td></tr>
+                        <tr><td><label for="password">Pasword:</label></td><td><input name="password" type="password"></td></tr>
+                    </table>
+                    <p><input type="submit" class="btn btn-success pull-right" value="<?php echo $this->translate('Login') ?> &raquo;"/></p>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+    </div>
+</div>
+<script>
+    document.body.style.background = '#000';
+</script>

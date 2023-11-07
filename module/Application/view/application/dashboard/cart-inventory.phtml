@@ -1,0 +1,169 @@
+<h1 style="padding-bottom:15px;margin-bottom:20px; border-bottom: 5px solid #eee;">
+	Cart Inventory
+</h1>
+
+<div id='exportform'><b>Fields to Export:</b><br/>
+	Select All <input type="checkbox" id="export-selectall">
+	<?php
+		$exportform->setAttribute('action', '/application/dashboard/export?'.$_SERVER['QUERY_STRING']); 
+		$exportform->prepare();
+		echo $this->form()->openTag($exportform);
+		echo $this->formCollection($exportform);
+		echo $this->form()->closeTag($exportform);
+	?>
+	<div id="close-exportform">X</div>
+</div>
+
+<?php
+	$filterform->setAttribute('action', $this->url('dashboard', array('action' => 'cart-inventory')) ); 
+	$filterform->prepare(); 
+?>	 
+
+<div style="float:left">
+	Total products found: <?php echo count($products); ?>
+</div>
+<div style="float:right;">
+	*Triple click to highlight fields. *Add spaces for a more exact search.
+	<button class="button-link" id="stock-button">Update Stock</button>
+	<button class="button-link" id="import-button">Import</button>
+	<button class="button-link" id="export-button">Export</button>
+	<button id="resetbutton" type="button" onclick="window.location='/dashboard/cart-inventory'">Reset</button>
+	<?php
+		echo $this->form()->openTag($filterform); 
+		echo $this->formSubmit($filterform->get('search')); 
+	?>	
+</div>
+<div style="clear:both;">
+
+<table class="table">
+	<thead>
+	<tr>
+		<th id='id-col'>ID</th>
+		<th id='sku-col'>SKU</th>
+		<th id='name-col'>Name</th>
+		<th id='manufacturer-col'>Manufacturer</th>
+		<th id='type-col'>Type</th>
+		<th id='categories-col'>Categories</th>
+		<th id='msrp-col'>MSRP</th>
+		<th id='price-col'>Price</th>
+		<th id='kit-col'>Kit</th>
+		<th id='hasbogo-col'>Has BOGO</th>
+		<th id='stockqty-col'>Stock QTY</th>
+		<th id='productpage-col'>Product Page</th>
+		<th>Image</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td><?php echo $this->formRow($filterform->get('id')); ?></td>
+		<td><?php echo $this->formRow($filterform->get('sku')); ?></td>
+		<td><?php echo $this->formRow($filterform->get('name')); ?></td>
+		<td><?php echo $this->formRow($filterform->get('manufacturer')); ?></td>
+		<td><?php echo $this->formRow($filterform->get('type')); ?></td>
+		<td></td>
+		<td></td>
+		<td style="width: 150px;"><?php echo $this->formRow($filterform->get('price-low')); ?> -
+			<?php echo $this->formRow($filterform->get('price-high')); ?></td>
+		<td><?php echo $this->formRow($filterform->get('kit')); ?></td>
+		<td><?php echo $this->formRow($filterform->get('hasbogo')); ?></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+<?php 
+	echo $this->formRow($filterform->get('order'));
+	echo $this->formRow($filterform->get('dir'));
+	echo $this->form()->closeTag();
+?>
+<script>//Add asc/desc arrow 
+	$('#'+$('#order').val().replace(' ','')+'-col').append('<img class="grid-sort-img" src="/img/grid_sort_'+$('#dir').val()+'.gif" />');
+</script>
+<?php foreach($products as $product): ?>
+	<tr class="prow">
+		<td><?php echo $product->id; ?></td>
+		<td><?php echo $product->sku; ?></td>
+		<td><?php echo $product->name; ?></td>
+		<td><?php echo $filterform->getIdName($product->manufacturer,'manufacturer'); ?></td>
+		<td><?php echo $filterform->getIdName($product->type,'type'); ?></td>
+		<td><?php if(isset($categories[$product->id])){ foreach($categories[$product->id] as $category) echo "$category<br/>"; } ?></td>
+		<td>$<?php echo number_format($product->msrp,2); ?></td>
+		<td>$<?php echo number_format($product->price,2); ?></td>
+		<td><?php echo $product->kit; ?></td>
+		<td><?php echo $product->hasbogo; ?></td>
+		<td><?php echo number_format($product->qty,0); ?></td>
+		<td><a href="<?php echo $product->url; ?>" target="_blank">Go To</a></td>
+		<td><img class="img-icon" src="/img/img.png" data-image="<?php echo $product->thumbnail; ?>"></td>
+	</tr>
+<?php endforeach; ?>
+	</tbody>
+</table>
+<div id="thumbnail"></div>
+
+<script>
+	var incontainer = false;
+	$('.table').hover(function(){incontainer = true;},function(){incontainer = false;});
+	$('.img-icon').click(function(){
+		if(incontainer){
+			var src = 'http://www.kellycodetectors.com/catalog/media/catalog/product/'+$(this).attr('data-image');
+			$('#thumbnail').html('<div>X</div><img src="'+src+'"/>');
+			$('#thumbnail').show();
+		}
+	});
+	$('body').click(function(){ if(!incontainer) $('#thumbnail').hide(); });
+
+	var lastclicked = null;
+	$('.table th').click(function(){ 
+		var col = $(this).text().toLowerCase();
+		if(col != 'image'){
+			$('#order').val(col);
+			
+			if($(this).find('.grid-sort-img').length){
+				switch($('#dir').val()){
+					case 'asc':
+						$('#dir').val('desc');
+					break;
+					case 'desc':
+						$('#dir').val('asc');
+					break;
+				}
+			}
+			 
+			$('#mproductfilter').submit();
+			lastclicked = this;
+		}
+	});
+
+	$('#export-selectall').change(function(){ 
+		var boxes = $('#mproductexport input');
+		boxes.prop('checked',!boxes.prop('checked'));
+	});
+
+	$('#export-button').click(function(){$('#exportform').show();});
+	$('#close-exportform').click(function(){$('#exportform').hide();});
+
+	$('#import-button').click(function(){
+		var msg = 'Are you sure, you want to import from Live Database? This will cause load on the Live Website.';
+		if(confirm(msg)){
+			$(this).attr('disabled',true);
+			$('#loading-box').show();
+			$.post('/application/dashboard/import',function(data){
+				if(data[0])
+					$('#loading-box').hide();
+					$('#import-button').attr('disabled',false);
+			});
+		}
+	});
+
+	$('#stock-button').click(function(){
+		var msg = 'Are you sure, you want to update stock from Live Database? This will cause load on the Live Website.';
+		if(confirm(msg)){
+			$(this).attr('disabled',true);
+			$('#loading-box').show();
+			$.post('/application/dashboard/update-stock',function(data){
+				if(data[0])
+					$('#loading-box').hide();
+				$('#stock-button').attr('disabled',false);
+			});
+		}
+	});
+</script>
