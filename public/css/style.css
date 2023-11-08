@@ -341,7 +341,7 @@ body {
 h1 .status{display: inline;background: #d5def7;padding: 3px;text-transform: uppercase;font-weight: bold; border: 1px solid #808080;}
 .field{float:left; padding:5px;width:300px;}
 .field b{color: #4c7bc6;}
-.static-fields{overflow: auto;min-height: 225px;}
+.static-fields{min-height: 225px;}
 .static-fields .field{height:45px;}
 .static-fields .field div{height:25px;}
 .tab-content {background: #ededed;color:#696969; overflow: hidden; clear: both;}
@@ -388,10 +388,6 @@ h1 .status{display: inline;background: #d5def7;padding: 3px;text-transform: uppe
     background: rgba(249, 255, 11, 0.20);
 }
 .container label{margin-left: 5px;}
-
-#filterform input[type='text'] {
-    width: 166px;
-}
 
 @media print {
     h1 .status {
